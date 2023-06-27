@@ -1,0 +1,40 @@
+@import "./custom-select";
+
+.products-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  .custom-select {
+    width: 100%;
+    &__name,
+    &__option {
+      font-size: 0.875rem;
+    }
+    &.disabled {
+      cursor: not-allowed;
+    }
+  }
+  .product {
+    max-width: 18rem;
+    &__img {
+      margin-bottom: 1rem;
+    }
+    &,
+    &__img,
+    img {
+      width: 100%;
+    }
+    img {
+      object-fit: contain;
+    }
+    &__select-wrapper {
+      width: fit-content;
+      margin: auto;
+    }
+  }
+}
+.btn-lock {
+  cursor: not-allowed !important;
+}
