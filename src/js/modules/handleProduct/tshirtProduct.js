@@ -1,3 +1,6 @@
+import { createElement, createOption, updateImage, updateSizes } from "./domElements.js";
+import toggleButton from "../toggleButton.js";
+
 const tshirtProduct = (data, btnIndex) => {
   const stock = data.product.stock;
   const colors = data.product.options[0].values;
@@ -48,3 +51,5 @@ const tshirtProduct = (data, btnIndex) => {
   toggleButton(buyButton[btnIndex]);
   return true;
 };
+
+export default tshirtProduct;

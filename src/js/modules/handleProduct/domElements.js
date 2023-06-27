@@ -52,13 +52,7 @@ const updateImage = (element, values) => {
 };
 
 //updates available shirt sizes based on stock for selected color
-const updateSizes = (
-  updateSelects,
-  sizeSelect,
-  colorElement,
-  sizes,
-  stock
-) => {
+const updateSizes = (updateSelects, sizeSelect, colorElement, sizes, stock) => {
   sizeSelect.innerHTML = "";
   sizes.forEach((size) => {
     if (
@@ -69,3 +63,5 @@ const updateSizes = (
   });
   if (updateSelects) updateSelect(sizeSelect);
 };
+
+export { createElement, createOption, updateImage, updateSizes };

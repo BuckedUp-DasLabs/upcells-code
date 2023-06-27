@@ -13,3 +13,5 @@ const postApi = async (url, body) => {
   }
   return responseLog;
 };
+
+export default postApi;

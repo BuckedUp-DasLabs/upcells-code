@@ -4,3 +4,5 @@ const toggleButton = (buttons) => {
     btn.toggleAttribute("btn-lock");
   });
 };
+
+export default toggleButton;
