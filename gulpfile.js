@@ -8,8 +8,8 @@ const defaultPath = "./src/js/modules/";
 const concatAll = () => {
   return src([
     `${defaultPath}urlParams.js`,
-    `${defaultPath}variables.js`,
-    `${defaultPath}setDataLayer.js`,
+    // `${defaultPath}variables.js`,
+    // `${defaultPath}setDataLayer.js`,
     `${defaultPath}toggleButton.js`,
     `${defaultPath}handleProduct/domElements.js`,
     `${defaultPath}handleProduct/fetchProduct.js`,
