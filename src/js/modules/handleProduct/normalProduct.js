@@ -1,4 +1,8 @@
-const normalProduct = (data,btnIndex) => {
+import { haveAllStock, hasThisStock, hasMoreThanOne } from "./stockFunctions.js";
+import { createElement, updateImage, createOption } from "./domElements.js";
+import toggleButton from "../toggleButton.js";
+
+const normalProduct = (data, btnIndex) => {
   if (!haveAllStock(data.product.options)) {
     return;
   }
@@ -32,3 +36,5 @@ const normalProduct = (data,btnIndex) => {
   toggleButton(buyButton[btnIndex]);
   return true;
 };
+
+export default normalProduct;

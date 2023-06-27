@@ -29,3 +29,5 @@ const hasMoreThanOne = (values) => {
   }
   return false;
 };
+
+export { haveAllStock, hasThisStock, hasMoreThanOne };

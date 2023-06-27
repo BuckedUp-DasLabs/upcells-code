@@ -1,3 +1,5 @@
+import postApi from "./postApi.js";
+
 //updates order
 const buy = async (data) => {
   //if equals 0, then the data hasnt been fetched yet.
@@ -25,7 +27,12 @@ const buy = async (data) => {
   data.product.options.forEach((op) => {
     const select = document.getElementById(`${op.id}`);
     newItem.options[op.id] = select.value;
-    newItem.price += parseFloat(data.product.options.find(option => option.id === op.id).values.find(value=>value.id == select.value).price.slice(1));
+    newItem.price += parseFloat(
+      data.product.options
+        .find((option) => option.id === op.id)
+        .values.find((value) => value.id == select.value)
+        .price.slice(1)
+    );
   });
   body.items.push(newItem);
   const fetchURL = `https://ar5vgv5qw5.execute-api.us-east-1.amazonaws.com/upsell/${orderID}`;
@@ -40,3 +47,5 @@ const buy = async (data) => {
   }
   window.location.href = buyRedirect;
 };
+
+export default buy;

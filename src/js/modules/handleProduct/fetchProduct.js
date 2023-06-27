@@ -10,3 +10,5 @@ const fetchProduct = async (productID) => {
   }
   return data;
 };
+
+export default fetchProduct;
