@@ -9,7 +9,7 @@ buyButton.forEach((btnArray) => {
 
 let globalData = [];
 
-window.onload = async () => {
+document.onload = async () => {
   await handleAllProducts(globalData);
   if (!hasStock) window.location.href = noThanksRedirect;
   watchSelects();
