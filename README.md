@@ -7,7 +7,13 @@
 <script src="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/Custom-Select@master/custom-select.js" defer></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/upcells-code@master/src/scss/style.css" />
 ```
-### 2. Place this code and change as necessary into html/css footer
+### 2. Place this code into a html block, where you want the product to be (one for each product) (change the 999 for the product id)
+```
+<div class="products-list prod-999">
+
+</div>
+```
+### 3. Place this code and change as necessary into html/css footer
 ```
 <script>
 const urlParams = new URLSearchParams(window.location.search);
