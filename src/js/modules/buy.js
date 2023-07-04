@@ -1,4 +1,5 @@
 import postApi from "./postApi.js";
+import { fetchURL, fetchURLfinal } from "./fetchURLs.js";
 
 //updates order
 const buy = async (data) => {
@@ -28,8 +29,6 @@ const buy = async (data) => {
     newItem.options[op.id] = select.value;
   });
   body.items.push(newItem);
-  const fetchURL = `https://ar5vgv5qw5.execute-api.us-east-1.amazonaws.com/upsell/${orderID}`;
-  const fetchURLfinal = `https://ar5vgv5qw5.execute-api.us-east-1.amazonaws.com/upsell/${orderID}/finish`;
   const response = await postApi(fetchURL, body);
   console.log(response);
   if (!response) return;
