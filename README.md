@@ -5,7 +5,7 @@
 ```
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/Custom-Select@master/style.css" />
 <script src="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/Custom-Select@master/custom-select.js" defer></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/upcells-code@master/src/scss/style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/upcells-code@main/src/scss/style.css" />
 ```
 ### 2. Place this code into a html block, where you want the product to be (one for each product) (change the 999 for the product id)
 ```
@@ -102,7 +102,7 @@ const dataLayerNoThanks = () => {
 
 let hasStock = false;
 </script>
-<script src="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/upcells-code@master/src/js/scripts.js" type="module"></script>
+<script src="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/upcells-code@main/src/js/scripts.js" type="module"></script>
 ```
 
 ## How to compile scss
