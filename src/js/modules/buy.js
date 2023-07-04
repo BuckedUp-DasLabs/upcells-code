@@ -19,7 +19,6 @@ const buy = async (data) => {
   //item to be updated into order
   const newItem = {
     product_id: data.product.id,
-    price: parseFloat(data.product.price.slice(1)),
     quantity: 1,
     options: {},
   };
