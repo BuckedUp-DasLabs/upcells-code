@@ -57,59 +57,33 @@ productsID.forEach(id=>{
 // any other action: click
 
 //CHANGE ONLY WHAT IS SAID TO CHANGE.
-const setDataLayer = (step_count, step_value, event, action) => {
+const setDataLayer = (event, action, value) => {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
-    offer_id: localStorage.getItem("first_page"),
-    offer_step: "ds1", //CHANGE!!!!!!!
-    step_count: step_count,
-    offer_page: "/landing",
-    from_step: document.referrer,
-    step_value: step_value,
-    total_value: 0,
-    event: event,
-    target: null,
-    action: action,
-    "target-properties": "Upsell - Page View",
-    value: 0,
-    page_id: origin,
-    "interaction-type": false,
-    function: "Start Upsell Page View",
-    first_page: localStorage.getItem("first_page"),
-    from: origin,
-    product: null,
-    type: "Unbounce Upsell", //CHANGE!!!!!!!
+    step_count: "", //lp, us1, us2, us3, ds1, ty
+    page_id: "", //OG-LP-OMO, pegar pelo query da url, passar pra frente.
+    version_id: "", //v1-control, v2-dropdown, v2-modal
+    event: event, //offer_view, interaction
+    action: action, //purchase, purchase-us, click, view_page
+    value: value, //final purchase value
+    transaction_id: orderID,
   });
 };
 
-//dataLayer call when the page is first opened
-dataLayerStart = () => {
+const dataLayerStart = () => {
+  setDataLayer((event = ""), (action = ""), (value = 0));
+};
+
+const dataLayerBuy = (data) => {
   setDataLayer(
-    (step_count = "2"),
-    (step_value = 0),//DONT CHANGE!!!!!.
-    (event = "offer_view"),
-    (action = "pageview")
+    (event = ""),
+    (action = ""),
+    (value = data.product.price.slice(1)) //dont change
   );
 };
 
-//dataLayer call when the user buys
-dataLayerBuy = (data) => {
-  setDataLayer(
-    (step_count = "1"),
-    (step_value = data.product.price.slice(1)),//DONT CHANGE!!!!!.
-    (event = "interaction"),
-    (action = "purchase-us")
-  );
-};
-
-//dataLayer call when the user dont buy
-dataLayerNoThanks = () => {
-  setDataLayer(
-    (step_count = "2"),
-    (step_value = 0),//DONT CHANGE!!!!!.
-    (event = "interaction"),
-    (action = "click")
-  );
+const dataLayerNoThanks = () => {
+  setDataLayer((event = ""), (action = ""), (value = 0));
 };
 
 //STOP HERE.
