@@ -7,6 +7,10 @@ const orderID = urlParams.get("order_uuid");
 
 
 //CHANGE FROM HERE UNTILL COMMENT SAYING TO STOP.
+const isLP = false;
+
+if(isLP)
+  urlParams.set("utm_source","")
 
 const productsID = [999,935]; //ID of each the product
 const isFinalPage = {999: false, 935: true};
