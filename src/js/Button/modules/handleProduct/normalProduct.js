@@ -11,7 +11,7 @@ const normalProduct = (data, btnIndex) => {
   data.product.options.forEach((op) => {
     const newElement = createElement();
 
-    row[data.product.id].appendChild(newElement.col);
+    row[data.product.id]?.appendChild(newElement.col);
 
     op.values.forEach((val, i) => {
       if (val.in_stock) {
