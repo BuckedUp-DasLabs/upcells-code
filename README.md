@@ -13,6 +13,14 @@
 
 </div>
 ```
+
+### 2.5 Place this code into a html block, where you want the buttons of the respective product to be (if there will be buttons) (change 742 for the product id)
+```
+<div class="buttons-list buttons-742">
+
+</div>
+
+```
 ### 3. Place this code and change as necessary into html/css footer
 ```
 <script>
@@ -87,26 +95,33 @@
   };
 
   const dataLayerStart = () => {
-    setDataLayer((event = ""), (action = ""), (value = 0));
+    setDataLayer((event = "pageview"), (action = "load"), (value = 0));
   };
 
   const dataLayerBuy = (data) => {
     setDataLayer(
-      (event = ""),
-      (action = ""),
+      (event = "interaction"),
+      (action = "purchase"),
       (value = data.product.price.slice(1)) //dont change
     );
   };
 
   const dataLayerNoThanks = () => {
-    setDataLayer((event = ""), (action = ""), (value = 0));
+    setDataLayer((event = "interaction"), (action = "click"), (value = 0));
   };
 
   //STOP HERE.
 
   let hasStock = false;
 </script>
+```
+### 4. If dropdown, place this after the previous code:
+```
 <script src="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/upcells-code@latest/src/js/scripts.js" type="module"></script>
+```
+### 4.5 If buttons, place this after the previous code: 
+```
+<script src="https://cdn.jsdelivr.net/gh/BuckedUp-DasLabs/upcells-code@latest/src/js/Button/scripts.js" type="module"></script>
 ```
 
 ## How to compile scss
