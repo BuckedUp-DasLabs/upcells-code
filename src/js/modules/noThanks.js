@@ -7,7 +7,7 @@ const noThanks = async () => {
     if (isFinalPage[key]) {
       const response = await postApi(fetchURLfinal, null);
       console.log(response);
-      if (!response) return;
+      if (!response) window.location.href = noThanksRedirect;
     }
     window.location.href = noThanksRedirect;
   }

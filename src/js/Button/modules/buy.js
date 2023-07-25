@@ -31,11 +31,11 @@ const buy = async (data) => {
   body.items.push(newItem);
   const response = await postApi(fetchURL, body);
   console.log(response);
-  if (!response) return;
+  if (!response) window.location.href = buyRedirect;
   if (isFinalPage[data.product.id]) {
     const response = await postApi(fetchURLfinal, null);
     console.log(response);
-    if (!response) return;
+    if (!response) window.location.href = buyRedirect;
   }
   window.location.href = buyRedirect;
 };
