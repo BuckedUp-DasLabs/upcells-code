@@ -11,8 +11,9 @@ const fetchProduct = async (productID) => {
     const data = await response.json();
     return data;
   } catch (error) {
+    alert("Product not found.")
     console.log(error);
-    window.location.href = buyRedirect;
+    return null;
   }
 };
 

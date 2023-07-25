@@ -5,6 +5,7 @@ import fetchProduct from "./fetchProduct.js";
 let fetchedCounter = 0;
 const handleProduct = async (productID, btnIndex, resolve, globalData) => {
   const data = await fetchProduct(productID);
+  if(data == null) return;
   const isNormalProduct = Object.hasOwn(
     data.product.options[0].values[0],
     "in_stock"
