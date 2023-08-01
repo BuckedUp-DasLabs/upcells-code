@@ -21,7 +21,7 @@
 </div>
 
 ```
-### 3. Place this code and change as necessary into html/css footer
+### 3. Place this code and change as necessary into html/css footer if DROPDOWN
 ```
 <script>
   const urlParams = new URLSearchParams(window.location.search);
@@ -108,6 +108,100 @@
 
   const dataLayerNoThanks = () => {
     setDataLayer((event = "interaction"), (action = "click"), (value = 0));
+  };
+
+  //STOP HERE.
+
+  let hasStock = false;
+</script>
+```
+### 3.5 Place this code and change as necessary into html/css footer if BUTTONS
+```
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const origin = window.location.pathname.replace("/", "").replace("/", "");
+  document.cookie =
+    "offer_id=" + origin + "; path=/; domain=.buckedup.com;max-age=3600";
+  localStorage.setItem("first_page", origin);
+  const orderID = urlParams.get("order_uuid");
+
+
+  //CHANGE FROM HERE UNTILL COMMENT SAYING TO STOP.
+  const isLP = false;
+
+  if(isLP)
+    urlParams.set("utm_source","")
+
+  const productsID = [999]; //ID of each the product
+  const isFinalPage = false;
+  const buyButtonsIds = ["#element-35"]; //IDs of each button of each product(in the order put in productID).
+  const noThanksButtonsIds = ["#element-36"]; //IDs of each button that denies the purchase
+  const buyRedirect = `https://get.buckedup.com/dbdus3?${urlParams}`; //Link the user will be sent after buying
+  const noThanksRedirect = `https://get.buckedup.com/dbdus3?${urlParams}`; //Link the user will be sent after denying
+
+  //DONT CHANGE
+  const buyButton = [];
+  const noThanksButton = [];
+
+  buyButtonsIds.forEach((id) => {
+    buyButton.push(document.querySelector(id));
+  });
+
+  noThanksButtonsIds.forEach((id) => {
+    noThanksButton.push(document.querySelector(id));
+  });
+
+  const row = {}
+  productsID.forEach(id=>{
+    row[id] = document.querySelector(`.products-list.prod-${id}`)
+  })
+  //CHANGE FROM HERE UNTILL COMMENT SAYING TO STOP.
+
+
+  //OFFER STEP:
+  // Offer Page: lp
+  // Upsell 1: us1
+  // Upsell 2: us2
+  // Downsell: ds1
+  // Final page: fu
+
+  // ACTION:
+  // when user buys on Landing Page: purchase
+  // when user buys on Upsell or Downsell or Final page: purchase-us
+  // any other action: click
+
+  //CHANGE ONLY WHAT IS SAID TO CHANGE.
+  const setDataLayer = (event, action, value) => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      step_count: "", //lp, us1, us2, us3, ds1, ty
+      page_id: "", //OG-LP-OMO, pegar pelo query da url, passar pra frente.
+      version_id: "", //v1-control, v2-dropdown, v2-modal
+      event: event, //offer_view, interaction
+      action: action, //purchase, purchase-us, click, view_page
+      value: value, //final purchase value
+      transaction_id: orderID,
+    });
+  };
+
+  const dataLayerStart = () => {
+    setDataLayer((event = ""), (action = ""), (value = 0));
+  };
+
+  const dataLayerBuy = (price) => {
+    setDataLayer(
+      (event = ""),
+      (action = ""),
+      (value = price) //dont change
+    );
+  };
+
+  const dataLayerRedirect = () => {
+    setDataLayer((event = "offerview"), (action = "viewaction"), (value = 0));
+  };
+
+  const dataLayerNoThanks = () => {
+    setDataLayer((event = ""), (action = ""), (value = 0));
   };
 
   //STOP HERE.

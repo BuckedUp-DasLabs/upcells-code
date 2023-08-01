@@ -9,7 +9,6 @@ const buy = async (data) => {
   }
   //if null, the api wasnt able to return the data.
   if (data == null) {
-    alert("There was an error with your request. Please try again later.");
     return;
   }
   dataLayerBuy(data);

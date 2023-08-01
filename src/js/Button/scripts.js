@@ -1,27 +1,23 @@
-import toggleButton from "../modules/toggleButton.js";
+import toggleButton from "./modules/toggleButton.js";
 import handleAllProducts from "./modules/handleProduct/handleProduct.js";
 import buy from "./modules/buy.js";
 import noThanks from "../modules/noThanks.js";
 
-buyButton.forEach((btnArray) => {
-  toggleButton(btnArray);
-});
+toggleButton();
 
 let globalData = [];
 
 window.onload = async () => {
   await handleAllProducts(globalData);
   if (!hasStock) window.location.href = noThanksRedirect;
-  buyButton.forEach((btnArray) => {
-    btnArray.forEach((btn) => {
-      btn.addEventListener(
-        "click",
-        () => {
-          buy(globalData[buyButton.indexOf(btnArray)]);
-        },
-        { once: true }
-      );
-    });
+  buyButton.forEach((btn) => {
+    btn.addEventListener(
+      "click",
+      () => {
+        buy(globalData);
+      },
+      { once: true }
+    );
   });
 };
 
