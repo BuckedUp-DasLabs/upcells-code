@@ -9,34 +9,53 @@ const buy = async (data) => {
   }
   //if null, the api wasnt able to return the data.
   if (data == null) {
-    alert("There was an error with your request. Please try again later.");
+    window.location.href = buyRedirect;
     return;
   }
-  dataLayerBuy(data);
+  
+  if (isLP) {
+    let string = ""
+    data.forEach(({ product }, i) => {      
+      string = string + `&products[${i}][id]=${product.id}&products[${i}][quantity]=1`;
+      product.options.forEach(op => {
+        const button = document.querySelector(`input[name='${op.id}']:checked`)
+        string = string + `&products[${i}][options][${op.id}]=${button.value.split("-")[1]}`
+      })
+    })
+    dataLayerRedirect()
+    window.location.href = `https://buckedup.com/cart/add?${string}&clear=true`
+    return;
+  }
+
+  let totalPrice = 0;
   let body = {
     order_uuid: orderID,
     items: [],
   };
-  //item to be updated into order
-  const newItem = {
-    product_id: data.product.id,
-    quantity: 1,
-    options: {},
-  };
-  //iterates over product options
-  data.product.options.forEach((op) => {
-    const button = document.querySelector(`input[name='${op.id}']:checked`)
-    newItem.options[op.id] = button.value
-  });
-  body.items.push(newItem);
+  data.forEach(({ product }) => {
+    totalPrice += parseFloat(product.price.slice(1));
+    const newItem = {
+      product_id: product.id,
+      quantity: 1,
+      options: {},
+    };
+    product.options.forEach((op) => {
+      const button = document.querySelector(`input[name='${op.id}']:checked`)
+      totalPrice += parseFloat(button.getAttribute("price"))
+      newItem.options[op.id] = button.value.split("-")[1]
+    });
+    body.items.push(newItem);
+  })
+  
   const response = await postApi(fetchURL, body);
   console.log(response);
   if (!response) window.location.href = buyRedirect;
-  if (isFinalPage[data.product.id]) {
+  if (isFinalPage) {
     const response = await postApi(fetchURLfinal, null);
     console.log(response);
     if (!response) window.location.href = buyRedirect;
   }
+  dataLayerBuy(totalPrice);
   window.location.href = buyRedirect;
 };
 
