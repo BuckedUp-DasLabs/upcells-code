@@ -14,15 +14,16 @@ const normalProduct = (data, btnIndex) => {
 
     const optionsWrapper = document.createElement("div");
     optionsWrapper.classList.add("buttons-list__op-wrapper")
-    
-    if(data.product.options.length > 1){
+
+    if (data.product.options.length > 1) {
       const optionTitle = document.createElement("p")
       optionTitle.innerHTML = op.name
       buttonList.appendChild(optionTitle)
     }
     buttonList.appendChild(optionsWrapper)
 
-    op.values.forEach((val, i) => {
+    let i = 0;
+    op.values.forEach((val) => {
       if (val.in_stock) {
         const [wrapper, button] = createButton(op.id, val.id, val.price.slice(1), val.name, val.images[0])
         if (i == 0) button.checked = true
@@ -30,6 +31,7 @@ const normalProduct = (data, btnIndex) => {
           updateImage(newElement.img, op.values, button)
         })
         optionsWrapper.appendChild(wrapper)
+        i++;
       }
     })
     updateImage(newElement.img, op.values, buttonList.querySelector("input"));

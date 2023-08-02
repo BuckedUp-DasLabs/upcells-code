@@ -7,7 +7,7 @@ const orderID = urlParams.get("order_uuid");
 
 
 //CHANGE FROM HERE UNTILL COMMENT SAYING TO STOP.
-const isLP = false;
+const isLP = true;
 
 if(isLP)
   urlParams.set("utm_source","")

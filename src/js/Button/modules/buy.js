@@ -12,10 +12,10 @@ const buy = async (data) => {
     window.location.href = buyRedirect;
     return;
   }
-  
+
   if (isLP) {
     let string = ""
-    data.forEach(({ product }, i) => {      
+    data.forEach(({ product }, i) => {
       string = string + `&products[${i}][id]=${product.id}&products[${i}][quantity]=1`;
       product.options.forEach(op => {
         const button = document.querySelector(`input[name='${op.id}']:checked`)
@@ -23,7 +23,11 @@ const buy = async (data) => {
       })
     })
     dataLayerRedirect()
-    window.location.href = `https://buckedup.com/cart/add?${string}&clear=true`
+    let url = `https://buckedup.com/cart/add?${string}&clear=true`;
+    try {
+      if (country) url = `https://${country}.buckedup.com/cart/add?${string}&clear=true`
+    } catch { }
+    window.location.href = url
     return;
   }
 
@@ -32,9 +36,9 @@ const buy = async (data) => {
     order_uuid: orderID,
     items: [],
   };
-  try{
-    if(country) body["country"] = country;
-  }catch{}
+  try {
+    if (country) body["country"] = country;
+  } catch { }
   data.forEach(({ product }) => {
     totalPrice += parseFloat(product.price.slice(1));
     const newItem = {
@@ -49,7 +53,7 @@ const buy = async (data) => {
     });
     body.items.push(newItem);
   })
-  
+
   const response = await postApi(fetchURL, body);
   console.log(response);
   if (!response) window.location.href = buyRedirect;
