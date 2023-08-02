@@ -12,9 +12,11 @@ const isLP = false;
 if(isLP)
   urlParams.set("utm_source","")
 
-const productsID = [999]; //ID of each the product
-const isFinalPage = false;
-const buyButtonsIds = ["#element-35"]; //IDs of each button of each product(in the order put in productID).
+const country = "ca";
+
+const productsID = [1104]; //ID of each the product
+const isFinalPage = {1104: true};
+const buyButtonsIds = [["#element-35"]]; //IDs of each button of each product(in the order put in productID).
 const noThanksButtonsIds = ["#element-36"]; //IDs of each button that denies the purchase
 const buyRedirect = `https://get.buckedup.com/dbdus3?${urlParams}`; //Link the user will be sent after buying
 const noThanksRedirect = `https://get.buckedup.com/dbdus3?${urlParams}`; //Link the user will be sent after denying
@@ -23,9 +25,13 @@ const noThanksRedirect = `https://get.buckedup.com/dbdus3?${urlParams}`; //Link 
 const buyButton = [];
 const noThanksButton = [];
 
-buyButtonsIds.forEach((id) => {
-  buyButton.push(document.querySelector(id));
-});
+buyButtonsIds.forEach(ids=>{
+  let buttons = [];
+  ids.forEach(id=>{
+    buttons.push(document.querySelector(id));
+  })
+  buyButton.push(buttons);
+})
 
 noThanksButtonsIds.forEach((id) => {
   noThanksButton.push(document.querySelector(id));
@@ -68,16 +74,12 @@ const dataLayerStart = () => {
   setDataLayer((event = ""), (action = ""), (value = 0));
 };
 
-const dataLayerBuy = (price) => {
+const dataLayerBuy = (data) => {
   setDataLayer(
     (event = ""),
     (action = ""),
-    (value = price) //dont change
+    (value = data.product.price.slice(1)) //dont change
   );
-};
-
-const dataLayerRedirect = () => {
-  setDataLayer((event = "offerview"), (action = "viewaction"), (value = 0));
 };
 
 const dataLayerNoThanks = () => {

@@ -12,8 +12,10 @@ const isLP = false;
 if(isLP)
   urlParams.set("utm_source","")
 
-const productsID = [999]; //ID of each the product
-const isFinalPage = false;
+const country = "ca"
+
+const productsID = [1104]; //ID of each the product
+const isFinalPage = true;
 const buyButtonsIds = ["#element-35"]; //IDs of each button of each product(in the order put in productID).
 const noThanksButtonsIds = ["#element-36"]; //IDs of each button that denies the purchase
 const buyRedirect = `https://get.buckedup.com/dbdus3?${urlParams}`; //Link the user will be sent after buying

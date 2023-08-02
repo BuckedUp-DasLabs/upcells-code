@@ -32,6 +32,9 @@ const buy = async (data) => {
     order_uuid: orderID,
     items: [],
   };
+  try{
+    if(country) body["country"] = country;
+  }catch{}
   data.forEach(({ product }) => {
     totalPrice += parseFloat(product.price.slice(1));
     const newItem = {

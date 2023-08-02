@@ -38,6 +38,8 @@
   if(isLP)
     urlParams.set("utm_source","")
 
+  const country = "ca" //if us erase this line.
+
   const productsID = [999,935]; //ID of each the product
   const isFinalPage = {999: false, 935: true};
   const buyButtonsIds = [["#element-35"],["#element-37"]]; //IDs of each button of each product(in the order put in productID).
@@ -131,6 +133,8 @@
 
   if(isLP)
     urlParams.set("utm_source","")
+
+  const country = "ca" //if us erase this line.
 
   const productsID = [999]; //ID of each the product
   const isFinalPage = false;

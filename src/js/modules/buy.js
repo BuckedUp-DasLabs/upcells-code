@@ -16,6 +16,9 @@ const buy = async (data) => {
     order_uuid: orderID,
     items: [],
   };
+  try {
+    if (country) body["country"] = country;
+  } catch { }
   //item to be updated into order
   const newItem = {
     product_id: data.product.id,

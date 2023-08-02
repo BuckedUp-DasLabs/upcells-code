@@ -1,10 +1,12 @@
 import toggleLoading from "../toggleLoading.js";
 const fetchProduct = async (productID) => {
   toggleLoading();
+  let url = `https://h03ygoadc1.execute-api.us-east-1.amazonaws.com/list/${productID}`
   try {
-    const response = await fetch(
-      `https://ar5vgv5qw5.execute-api.us-east-1.amazonaws.com/list/${productID}`
-    );
+    if (country) url = url + `?country=${country}`
+  } catch { }
+  try {
+    const response = await fetch(url);
     if (response.status == 500 || response.status == 400)
       window.location.href = "https://buckedup.com"
     if (!response.ok) {
