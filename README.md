@@ -83,7 +83,7 @@
   // any other action: click
 
   //CHANGE ONLY WHAT IS SAID TO CHANGE.
-  const setDataLayer = (event, action, value) => {
+  const setDataLayer = (event, action, value, currency=undefined) => {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       step_count: "", //lp, us1, us2, us3, ds1, ty
@@ -92,6 +92,7 @@
       event: event, //offer_view, interaction
       action: action, //purchase, purchase-us, click, view_page
       value: value, //final purchase value
+      currency: currency,
       transaction_id: orderID,
     });
   };
@@ -101,10 +102,14 @@
   };
 
   const dataLayerBuy = (data) => {
+    const formatted = data.product.price.match(/([A-Za-z]+)? ?\$(\d+\.\d+)/);
+    const currentCurrency = formatted[1] || "USD"
+    const currentValue = parseFloat(formatted[2]).toFixed(2)
     setDataLayer(
       (event = "interaction"),
       (action = "purchase"),
-      (value = data.product.price.slice(1)) //dont change
+      (value = currentValue), //dont change
+      (currency = currentCurrency),
     );
   };
 
@@ -175,7 +180,7 @@
   // any other action: click
 
   //CHANGE ONLY WHAT IS SAID TO CHANGE.
-  const setDataLayer = (event, action, value) => {
+  const setDataLayer = (event, action, value, currency=undefined) => {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       step_count: "", //lp, us1, us2, us3, ds1, ty
@@ -184,19 +189,21 @@
       event: event, //offer_view, interaction
       action: action, //purchase, purchase-us, click, view_page
       value: value, //final purchase value
+      currency: currency,
       transaction_id: orderID,
     });
   };
 
   const dataLayerStart = () => {
-    setDataLayer((event = ""), (action = ""), (value = 0));
+    setDataLayer((event = "pageview"), (action = "load"), (value = 0));
   };
 
-  const dataLayerBuy = (price) => {
+  const dataLayerBuy = (price, currentCurrency) => {
     setDataLayer(
-      (event = ""),
-      (action = ""),
-      (value = price) //dont change
+      (event = "interaction"),
+      (action = "purchase"),
+      (value = price), //dont change
+      (currency = currentCurrency)
     );
   };
 
@@ -205,7 +212,7 @@
   };
 
   const dataLayerNoThanks = () => {
-    setDataLayer((event = ""), (action = ""), (value = 0));
+    setDataLayer((event = "interaction"), (action = "click"), (value = 0));
   };
 
   //STOP HERE.

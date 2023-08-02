@@ -25,7 +25,7 @@ const normalProduct = (data, btnIndex) => {
     let i = 0;
     op.values.forEach((val) => {
       if (val.in_stock) {
-        const [wrapper, button] = createButton(op.id, val.id, val.price.slice(1), val.name, val.images[0])
+        const [wrapper, button] = createButton(op.id, val.id, val.price.match(/\d+\.\d+/)[0], val.name, val.images[0])
         if (i == 0) button.checked = true
         button.addEventListener("change", () => {
           updateImage(newElement.img, op.values, button)

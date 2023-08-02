@@ -11,7 +11,6 @@ const buy = async (data) => {
   if (data == null) {
     return;
   }
-  dataLayerBuy(data);
   let body = {
     order_uuid: orderID,
     items: [],
@@ -39,6 +38,7 @@ const buy = async (data) => {
     console.log(response);
     if (!response) window.location.href = buyRedirect;
   }
+  dataLayerBuy(data);
   window.location.href = buyRedirect;
 };
 

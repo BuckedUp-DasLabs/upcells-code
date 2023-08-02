@@ -7,7 +7,7 @@ const orderID = urlParams.get("order_uuid");
 
 
 //CHANGE FROM HERE UNTILL COMMENT SAYING TO STOP.
-const isLP = true;
+const isLP = false;
 
 if(isLP)
   urlParams.set("utm_source","")
@@ -53,7 +53,7 @@ productsID.forEach(id=>{
 // any other action: click
 
 //CHANGE ONLY WHAT IS SAID TO CHANGE.
-const setDataLayer = (event, action, value) => {
+const setDataLayer = (event, action, value, currency=undefined) => {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     step_count: "", //lp, us1, us2, us3, ds1, ty
@@ -62,19 +62,21 @@ const setDataLayer = (event, action, value) => {
     event: event, //offer_view, interaction
     action: action, //purchase, purchase-us, click, view_page
     value: value, //final purchase value
+    currency: currency,
     transaction_id: orderID,
   });
 };
 
 const dataLayerStart = () => {
-  setDataLayer((event = ""), (action = ""), (value = 0));
+  setDataLayer((event = "pageview"), (action = "load"), (value = 0));
 };
 
-const dataLayerBuy = (price) => {
+const dataLayerBuy = (price, currentCurrency) => {
   setDataLayer(
-    (event = ""),
-    (action = ""),
-    (value = price) //dont change
+    (event = "interaction"),
+    (action = "purchase"),
+    (value = price), //dont change
+    (currency = currentCurrency)
   );
 };
 
@@ -83,7 +85,7 @@ const dataLayerRedirect = () => {
 };
 
 const dataLayerNoThanks = () => {
-  setDataLayer((event = ""), (action = ""), (value = 0));
+  setDataLayer((event = "interaction"), (action = "click"), (value = 0));
 };
 
 //STOP HERE.

@@ -32,6 +32,7 @@ const buy = async (data) => {
   }
 
   let totalPrice = 0;
+  const currency = data[0].product.price.match(/([A-Za-z]+)? ?\$(\d+\.\d+)/)[1] || "USD"
   let body = {
     order_uuid: orderID,
     items: [],
@@ -40,7 +41,7 @@ const buy = async (data) => {
     if (country) body["country"] = country;
   } catch { }
   data.forEach(({ product }) => {
-    totalPrice += parseFloat(product.price.slice(1));
+    totalPrice += parseFloat(product.price.match(/\d+\.\d+/)[0]);
     const newItem = {
       product_id: product.id,
       quantity: 1,
@@ -62,7 +63,7 @@ const buy = async (data) => {
     console.log(response);
     if (!response) window.location.href = buyRedirect;
   }
-  dataLayerBuy(totalPrice);
+  dataLayerBuy(totalPrice.toFixed(2), currency);
   window.location.href = buyRedirect;
 };
 

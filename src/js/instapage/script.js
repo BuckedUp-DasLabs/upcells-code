@@ -7,7 +7,7 @@ const orderID = urlParams.get("order_uuid");
 
 
 //CHANGE FROM HERE UNTILL COMMENT SAYING TO STOP.
-const isLP = false;
+const isLP = true;
 
 if(isLP)
   urlParams.set("utm_source","")
@@ -57,7 +57,7 @@ productsID.forEach(id=>{
 // any other action: click
 
 //CHANGE ONLY WHAT IS SAID TO CHANGE.
-const setDataLayer = (event, action, value) => {
+const setDataLayer = (event, action, value, currency=undefined) => {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     step_count: "", //lp, us1, us2, us3, ds1, ty
@@ -66,24 +66,29 @@ const setDataLayer = (event, action, value) => {
     event: event, //offer_view, interaction
     action: action, //purchase, purchase-us, click, view_page
     value: value, //final purchase value
+    currency: currency,
     transaction_id: orderID,
   });
 };
 
 const dataLayerStart = () => {
-  setDataLayer((event = ""), (action = ""), (value = 0));
+  setDataLayer((event = "pageview"), (action = "load"), (value = 0));
 };
 
 const dataLayerBuy = (data) => {
+  const formatted = data.product.price.match(/([A-Za-z]+)? ?\$(\d+\.\d+)/);
+  const currentCurrency = formatted[1] || "USD"
+  const currentValue = parseFloat(formatted[2]).toFixed(2)
   setDataLayer(
-    (event = ""),
-    (action = ""),
-    (value = data.product.price.slice(1)) //dont change
+    (event = "interaction"),
+    (action = "purchase"),
+    (value = currentValue), //dont change
+    (currency = currentCurrency),
   );
 };
 
 const dataLayerNoThanks = () => {
-  setDataLayer((event = ""), (action = ""), (value = 0));
+  setDataLayer((event = "interaction"), (action = "click"), (value = 0));
 };
 
 //STOP HERE.
