@@ -23,7 +23,7 @@ const buy = async (data) => {
       })
     })
     dataLayerRedirect()
-    let url = `https://buckedup.com/cart/add?${string}&clear=true`;
+    let url = `https://buckedup.com/cart/add?${string}&${urlParams}&clear=true`;
     try {
       if (country) url = `https://${country}.buckedup.com/cart/add?${string}&${urlParams}&clear=true`
     } catch { }
