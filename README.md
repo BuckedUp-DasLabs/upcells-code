@@ -93,6 +93,7 @@
       action: action, //purchase, purchase-us, click, view_page
       value: value, //final purchase value
       currency: currency,
+      country: country, //if country not defined, use "us".
       transaction_id: orderID,
     });
   };
