@@ -1,7 +1,7 @@
 import toggleButton from "./modules/toggleButton.js";
 import handleAllProducts from "./modules/handleProduct/handleProduct.js";
 import buy from "./modules/buy.js";
-import noThanks from "../modules/noThanks.js";
+import noThanks from "../modules/noThanks.js"
 
 toggleButton();
 
