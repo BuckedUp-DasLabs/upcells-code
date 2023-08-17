@@ -1,7 +1,7 @@
 import toggleLoading from "../toggleLoading.js";
 const fetchProduct = async (productID) => {
   toggleLoading();
-  let url = `https://h03ygoadc1.execute-api.us-east-1.amazonaws.com/list/${productID}`
+  let url = `https://ar5vgv5qw5.execute-api.us-east-1.amazonaws.com/list/${productID}`
   try {
     if (country) url = url + `?country=${country}`
   } catch { }
