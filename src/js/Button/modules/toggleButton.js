@@ -1,7 +1,8 @@
 const toggleButton = () => {
-  buyButton.forEach((btn) => {
+  [...noThanksButton,...buyButton].forEach((btn) => {
     btn.classList.toggle("btn-lock");
     btn.toggleAttribute("btn-lock");
+    btn.toggleAttribute("disabled");
   });
 };
 

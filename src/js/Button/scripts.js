@@ -14,9 +14,9 @@ window.onload = async () => {
     btn.addEventListener(
       "click",
       () => {
-        buy(globalData);
-      },
-      { once: true }
+        if(!btn.hasAttribute("disabled"))
+          buy(globalData);
+      }
     );
   });
 };
@@ -25,5 +25,8 @@ dataLayerStart();
 
 if (noThanksButton[0])
   noThanksButton.forEach((btn) => {
-    btn.addEventListener("click", noThanks, { once: true });
+    btn.addEventListener("click", ()=>{
+      if(!btn.hasAttribute("disabled"))
+        noThanks()
+    });
   });

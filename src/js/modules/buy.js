@@ -1,8 +1,12 @@
 import postApi from "./postApi.js";
 import { fetchURL, fetchURLfinal } from "./fetchURLs.js";
+import toggleButton from "./toggleButton.js";
 
 //updates order
 const buy = async (data) => {
+  buyButton.forEach((btnArray) => {
+    toggleButton(btnArray);
+  });
   //if equals 0, then the data hasnt been fetched yet.
   if (data.length === 0) {
     return;
