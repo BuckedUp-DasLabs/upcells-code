@@ -2,6 +2,10 @@ import postApi from "./postApi.js";
 import { fetchURL, fetchURLfinal } from "./fetchURLs.js";
 import toggleButton from "./toggleButton.js";
 
+let hasBought = 0
+let hasFinalized = 0
+let responseBought
+let responseFinalized
 //updates order
 const buy = async (data) => {
   buyButton.forEach((btnArray) => {
@@ -34,15 +38,22 @@ const buy = async (data) => {
     newItem.options[op.id] = select.value;
   });
   body.items.push(newItem);
-  const response = await postApi(fetchURL, body);
-  console.log(response);
-  if (!response) window.location.href = buyRedirect;
-  if (isFinalPage[data.product.id]) {
-    const response = await postApi(fetchURLfinal, null);
-    console.log(response);
-    if (!response) window.location.href = buyRedirect;
+  if(!hasBought){
+    responseBought = await postApi(fetchURL, body);
+    hasBought = 1
+    console.log(responseBought);
   }
-  dataLayerBuy(data);
+  if (!responseBought) window.location.href = buyRedirect;
+  if (isFinalPage[data.product.id]) {
+    if(!hasFinalized){
+      responseFinalized = await postApi(fetchURLfinal, null);
+      hasFinalized = 1
+      console.log(responseFinalized);
+    }
+    if (!responseFinalized) window.location.href = buyRedirect;
+  }
+  if(!hasBought)
+    dataLayerBuy(data);
   window.location.href = buyRedirect;
 };
 

@@ -2,6 +2,10 @@ import postApi from "../../modules/postApi.js";
 import { fetchURL, fetchURLfinal } from "../../modules/fetchURLs.js";
 import toggleButton from "./toggleButton.js";
 
+let hasBought = 0
+let hasFinalized = 0
+let responseBought
+let responseFinalized
 //updates order
 const buy = async (data) => {
   toggleButton();
@@ -57,15 +61,22 @@ const buy = async (data) => {
     body.items.push(newItem);
   })
 
-  const response = await postApi(fetchURL, body);
-  console.log(response);
-  if (!response) window.location.href = buyRedirect;
-  if (isFinalPage) {
-    const response = await postApi(fetchURLfinal, null);
-    console.log(response);
-    if (!response) window.location.href = buyRedirect;
+  if(!hasBought){
+    responseBought = await postApi(fetchURL, body);
+    hasBought = 1
+    console.log(responseBought);
   }
-  dataLayerBuy(totalPrice.toFixed(2), currency);
+  if (!responseBought) window.location.href = buyRedirect;
+  if (isFinalPage) {
+    if(!hasFinalized){
+      responseFinalized = await postApi(fetchURLfinal, null);
+      hasFinalized = 1
+      console.log(responseFinalized);
+    }
+    if (!responseFinalized) window.location.href = buyRedirect;
+  }
+  if(!hasBought)
+    dataLayerBuy(totalPrice.toFixed(2), currency);
   window.location.href = buyRedirect;
 };
 
