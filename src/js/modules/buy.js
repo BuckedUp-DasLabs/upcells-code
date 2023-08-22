@@ -37,13 +37,14 @@ const buy = async (data) => {
   const response = await postApi(fetchURL, body);
   console.log(response);
   if (!response) window.location.href = buyRedirect;
-  if (isFinalPage[data.product.id]) {
+  if (isFinalPage) {
     const response = await postApi(fetchURLfinal, null);
     console.log(response);
     if (!response) window.location.href = buyRedirect;
   }
   dataLayerBuy(data);
-  window.location.href = buyRedirect;
+  console.log(body)
+  // window.location.href = buyRedirect;
 };
 
 export default buy;
