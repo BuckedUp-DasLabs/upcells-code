@@ -46,9 +46,10 @@ const createOption = (value, text = "") => {
 
 //updates product image based on selected option
 const updateImage = (element, values) => {
+  console.log(element,values)
   element.img.src = values.filter(
     (val) => val.id == element.select.value
-  )[0].images[0];
+  )[0].image.src;
 };
 
 //updates available shirt sizes based on stock for selected color

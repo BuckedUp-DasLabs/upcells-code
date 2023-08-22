@@ -1,38 +1,31 @@
-import { haveAllStock, hasThisStock, hasMoreThanOne } from "./stockFunctions.js";
 import { createElement, updateImage, createOption } from "./domElements.js";
 import toggleButton from "../toggleButton.js";
 
-const normalProduct = (data, btnIndex) => {
-  if (!haveAllStock(data.product.options)) {
-    return;
-  }
-  hasStock = true;
-  data.product.options.forEach((op) => {
-    let hasStock = hasThisStock(op.values);
-    const newElement = createElement();
+const normalProduct = (product, btnIndex) => {
+  console.log(product)
+  const newElement = createElement();
 
-    row[data.product.id].appendChild(newElement.col);
+  row[product.id].appendChild(newElement.col);
 
-    newElement.select.id = op.id;
-    newElement.select.addEventListener("change", () => {
-      updateImage(newElement, op.values);
-    });
-
-    if (!hasMoreThanOne(op.values)) {
-      newElement.selectWrapper.style.display = "none";
-      newElement.selectedOption.innerHTML = hasStock.name;
-      newElement.col.appendChild(newElement.selectedOption);
-      newElement.select.appendChild(
-        createOption(`${hasStock.id}`, hasStock.name)
-      );
-    } else
-      op.values.forEach((val) => {
-        if (val.in_stock) {
-          newElement.select.appendChild(createOption(`${val.id}`, val.name));
-        }
-      });
-    updateImage(newElement, op.values);
+  newElement.select.id = product.id;
+  newElement.select.addEventListener("change", () => {
+    updateImage(newElement, product.variants);
   });
+  product.variants.forEach((variant) => {
+      newElement.select.appendChild(createOption(`${variant.id}`, variant.title));
+  });
+  updateImage(newElement, product.variants);
+  // product.variants.forEach((op) => {
+
+  //   if (product.variants.length == 1) {
+  //     newElement.selectWrapper.style.display = "none";
+  //     newElement.selectedOption.innerHTML = hasStock.name;
+  //     newElement.col.appendChild(newElement.selectedOption);
+  //     newElement.select.appendChild(
+  //       createOption(`${hasStock.id}`, hasStock.name)
+  //     );
+  //   } else
+  // });
   toggleButton(buyButton[btnIndex]);
   return true;
 };

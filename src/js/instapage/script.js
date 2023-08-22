@@ -1,53 +1,3 @@
-const test = async (ids) => {
-  const storefrontAccessToken = "cf7a17ee55258cddfb9be5ef93cc96b2";
-  const shop = "bucked-up-offers";
-  const testIds = ["6682439516369", "6675141558481"];
-  const query = `
-  { 
-    nodes(ids: [${testIds.map((id) => `"gid://shopify/Product/${id}"`)}]) {
-      ... on Product {
-        availableForSale
-        title
-        variants(first: 100) {
-          edges{
-            node{
-              title
-              price{
-                amount
-              }
-              image {
-                ... on Image {
-                  src
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  `;
-  const response = await fetch(
-    `https://${shop}.myshopify.com/api/2021-07/graphql.json`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": storefrontAccessToken,
-      },
-      body: JSON.stringify({ query: query }),
-    }
-  );
-  let data = await response.json();
-  data = data.data.nodes;
-  data.forEach((obj) => {
-    obj.variants = obj.variants.edges;
-    for (let key in obj.variants) obj.variants[key] = obj.variants[key].node;
-  });
-  console.log(data)
-  return data
-};
-
 const urlParams = new URLSearchParams(window.location.search);
 const origin = window.location.pathname.replace("/", "").replace("/", "");
 document.cookie =
@@ -62,13 +12,12 @@ if (isLP) urlParams.set("utm_source", "");
 
 // const country = "ca";
 
-const productsID = [999]; //ID of each the product
+const productsID = [6682439516369,6675141558481]; //ID of each the product
 const isFinalPage = true;
-const buyButtonsIds = [["#element-35"]]; //IDs of each button of each product(in the order put in productID).
+const buyButtonsIds = [["#element-35"],["#element-37"]]; //IDs of each button of each product(in the order put in productID).
 const noThanksButtonsIds = ["#element-36"]; //IDs of each button that denies the purchase
 let buyRedirect = `https://get.buckedup.com/dbdus3?${urlParams}`; //Link the user will be sent after buying
 let noThanksRedirect = `https://get.buckedup.com/dbdus3?${urlParams}`; //Link the user will be sent after denying
-test(productsID);
 
 //DONT CHANGE
 const buyButton = [];
@@ -129,4 +78,4 @@ const dataLayerNoThanks = () => {
 
 //STOP HERE.
 
-let hasStock = false;
+// let hasStock = false;
