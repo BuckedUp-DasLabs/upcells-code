@@ -1,6 +1,5 @@
-import postApi from "./postApi.js";
-import { fetchURL, fetchURLfinal } from "./fetchURLs.js";
 import toggleButton from "./toggleButton.js";
+import { fetchUrl, apiOptions } from "../variables.js";
 
 //updates order
 const buy = async (data) => {
@@ -15,36 +14,47 @@ const buy = async (data) => {
   if (data == null) {
     return;
   }
-  let body = {
-    order_uuid: orderID,
-    items: [],
+  console.log(data);
+  const select = document.getElementById(data.id);
+  const variantId = select.value;
+  const input = `
+    {
+      "input":{
+        "lineItems": [{
+          "variantId": "${variantId}",
+          "quantity": 1
+        }]
+      }
+    }
+  `;
+  const query = `
+    mutation checkoutCreate($input: CheckoutCreateInput!) {
+      checkoutCreate(input: $input) {
+        checkout {
+          webUrl
+          currencyCode
+        }
+      }
+    }
+  `;
+  const body = {
+    query: query,
+    variables: JSON.parse(input),
   };
   try {
-    if (country) body["country"] = country;
-  } catch { }
-  //item to be updated into order
-  const newItem = {
-    product_id: data.product.id,
-    quantity: 1,
-    options: {},
-  };
-  //iterates over product options
-  data.product.options.forEach((op) => {
-    const select = document.getElementById(`${op.id}`);
-    newItem.options[op.id] = select.value;
-  });
-  body.items.push(newItem);
-  const response = await postApi(fetchURL, body);
-  console.log(response);
-  if (!response) window.location.href = buyRedirect;
-  if (isFinalPage) {
-    const response = await postApi(fetchURLfinal, null);
-    console.log(response);
-    if (!response) window.location.href = buyRedirect;
+    const response = await fetch(fetchUrl, {
+      ...apiOptions,
+      body: JSON.stringify(body),
+    });
+    const responseLog = await response.json();
+    if(!response.ok)
+      throw new Error("Api Error.")
+    dataLayerRedirect()
+    window.location.href = responseLog.data.checkoutCreate.checkout.webUrl;
+  } catch (error) {
+    alert("There was a problem. Please try again later.");
+    console.log(error);
   }
-  dataLayerBuy(data);
-  console.log(body)
-  // window.location.href = buyRedirect;
 };
 
 export default buy;

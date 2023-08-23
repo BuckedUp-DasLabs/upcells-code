@@ -1,8 +1,7 @@
 import toggleLoading from "../toggleLoading.js";
+import { apiOptions, fetchUrl } from "../../variables.js";
 const fetchProduct = async (ids,data) => {
   toggleLoading();
-  const storefrontAccessToken = "cf7a17ee55258cddfb9be5ef93cc96b2";
-  const shop = "bucked-up-offers";
   const query = `
   { 
     nodes(ids: [${ids.map((id) => `"gid://shopify/Product/${id}"`)}]) {
@@ -32,14 +31,9 @@ const fetchProduct = async (ids,data) => {
   }
   `;
   try{
-    const response = await fetch(
-      `https://${shop}.myshopify.com/api/2021-07/graphql.json`,
+    const response = await fetch(fetchUrl,
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": storefrontAccessToken,
-        },
+        ...apiOptions,
         body: JSON.stringify({ query: query }),
       }
     );
@@ -55,7 +49,6 @@ const fetchProduct = async (ids,data) => {
       for (let key in obj.variants) obj.variants[key] = obj.variants[key].node;
     });
     toggleLoading()
-    console.log(data)
     return data
   }catch(error){
     alert("Product not found.")

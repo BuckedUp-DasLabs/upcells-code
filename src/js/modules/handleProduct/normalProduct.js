@@ -2,7 +2,6 @@ import { createElement, updateImage, createOption } from "./domElements.js";
 import toggleButton from "../toggleButton.js";
 
 const normalProduct = (product, btnIndex) => {
-  console.log(product)
   const newElement = createElement();
 
   row[product.id].appendChild(newElement.col);
