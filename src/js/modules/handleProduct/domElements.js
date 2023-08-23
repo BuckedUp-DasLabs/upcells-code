@@ -51,6 +51,15 @@ const updateImage = (element, values) => {
   )[0].image.src;
 };
 
+const updateImageMultiple = (product, title, element) => {
+  for (let variant of product.variants) {
+    if (variant.title.includes(title)) {
+      element.img.src = variant.image.src;
+      return;
+    }
+  }
+};
+
 //updates available shirt sizes based on stock for selected color
 const updateSizes = (updateSelects, sizeSelect, colorElement, sizes, stock) => {
   sizeSelect.innerHTML = "";
@@ -64,4 +73,4 @@ const updateSizes = (updateSelects, sizeSelect, colorElement, sizes, stock) => {
   if (updateSelects) updateSelect(sizeSelect);
 };
 
-export { createElement, createOption, updateImage, updateSizes };
+export { createElement, createOption, updateImage, updateImageMultiple, updateSizes };

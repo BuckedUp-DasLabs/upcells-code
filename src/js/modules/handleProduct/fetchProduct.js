@@ -9,12 +9,23 @@ const fetchProduct = async (ids,data) => {
         availableForSale
         title
         id
+        options{
+          ... on ProductOption{
+            id
+            name
+            values
+          }
+        }
         variants(first: 100) {
           edges{
             node{
               id
               title
               availableForSale
+              selectedOptions{
+                name
+                value
+              }
               price{
                 amount
               }

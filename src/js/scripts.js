@@ -1,6 +1,7 @@
 import toggleButton from "./modules/toggleButton.js";
 import fetchProduct from "./modules/handleProduct/fetchProduct.js";
 import normalProduct from "./modules/handleProduct/normalProduct.js";
+import multipleOptionsProduct from "./modules/handleProduct/multipleOptionsProduct.js";
 import buy from "./modules/buy.js";
 
 buyButton.forEach((btnArray) => {
@@ -18,6 +19,10 @@ window.onload = async () => {
     return;
   };
   globalData.forEach((product,i)=>{
+    if(product.options.length > 1){
+      multipleOptionsProduct(product,i)
+      return;
+    }
     normalProduct(product,i)
   })
   watchSelects();
