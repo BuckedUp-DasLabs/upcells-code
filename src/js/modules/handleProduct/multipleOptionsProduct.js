@@ -20,6 +20,7 @@ const multipleOptionsProduct = (product, btnIndex) => {
 
   const createDropdown = (option, primaryElement = false) => {
     const newElement = createElement();
+    newElement.selectWrapper.id = product.id
     if (!primaryElement) {
       row[product.id].appendChild(newElement.col);
     } else {
@@ -55,6 +56,9 @@ const multipleOptionsProduct = (product, btnIndex) => {
     })
     updateSelect(secondarySelect)
   }
+  buyButton[btnIndex].forEach(btn=>{
+    btn.setAttribute("multiple",product.id)
+  })
   toggleButton(buyButton[btnIndex]);
   return true;
 };

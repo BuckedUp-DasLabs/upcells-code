@@ -14,9 +14,16 @@ const buy = async (data) => {
   if (data == null) {
     return;
   }
-  console.log(data);
-  const select = document.getElementById(data.id);
-  const variantId = select.value;
+  let variantId
+  if(document.querySelector(`[multiple="${data.id}"]`)){
+    const wrapper = document.getElementById(data.id)
+    const [primary,secondary] = wrapper.querySelectorAll("select")
+    variantId = data.variants.filter(variant=>(variant.title.includes(primary.value) && variant.title.includes(secondary.value)))[0].id
+  }
+  else{
+    const select = document.getElementById(data.id);
+    variantId = select.value;
+  }
   const input = `
     {
       "input":{
